@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Manostock</title>
+    <style>
+        /* General Styling for Dark Mode (Default) */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2b2e4a, #00aaff);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        header {
+            margin-bottom: 50px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            background: -webkit-linear-gradient(#ff6ec7, #7873f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s ease infinite;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            margin: 15px 0 0;
+            color: #d3d3d3;
+        }
+
+        /* 3D Floating Cards */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            width: 280px;
+            height: 180px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+        }
+
+        .feature:hover {
+            transform: translateY(-20px) rotateY(10deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .feature h2 {
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            color: #ff6ec7;
+        }
+
+        .feature p {
+            font-size: 1rem;
+            color: #f1f1f1;
+        }
+
+        /* Call to Action Buttons */
+        .cta {
+            margin-top: 50px;
+        }
+
+        .cta button {
+            font-size: 1.5rem;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, #ff6ec7, #7873f5);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            margin: 0 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(90deg, #7873f5, #ff6ec7);
+        }
+
+        /* Light Mode Styling */
+        body.light-mode {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            color: #333;
+        }
+
+        .light-mode .feature {
+            background: rgba(0, 0, 0, 0.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .light-mode .feature h2 {
+            color: #0056b3;
+        }
+
+        .light-mode .feature p {
+            color: #333; /* Darker text for better visibility in light mode */
+        }
+
+        .light-mode header h1 {
+            background: -webkit-linear-gradient(#0056b3, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .light-mode header p {
+            color: #555;
+        }
+
+        .light-mode .cta button {
+            background: linear-gradient(90deg, #0056b3, #00aaff);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .light-mode .cta button:hover {
+            background: linear-gradient(90deg, #00aaff, #0056b3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientText {
+            0% {
+                background-position: 0%;
+            }
+
+            100% {
+                background-position: 100%;
+            }
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-switch input {
+            display: none;
+        }
+
+        .toggle-switch label {
+            cursor: pointer;
+            width: 50px;
+            height: 25px;
+            background: #555;
+            display: block;
+            border-radius: 25px;
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch label::after {
+            content: '';
+            width: 23px;
+            height: 23px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch input:checked+label {
+            background: #00aaff;
+        }
+
+        .toggle-switch input:checked+label::after {
+            transform: translateX(25px);
+        }
+
+        .toggle-container button {
+            font-size: 1rem;
+            padding: 8px 16px;
+            background: #ff6ec7;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .toggle-container button:hover {
+            transform: scale(1.1);
+            background: #7873f5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Container for the toggle switch and buttons -->
+    <div class="toggle-container">
+        <div class="toggle-switch">
+            <input type="checkbox" id="modeToggle">
+            <label for="modeToggle"></label>
+        </div>
+        <!-- Buttons next to the toggle switch -->
+        <button onclick="window.location.href='https://app.manostock.com/login'">Login</button>
+        <button onclick="window.location.href='https://app.manostock.com/get-started'">Get Started</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Welcome to Manostock</h1>
+            <p>Revolutionize Your Business Management</p>
+        </header>
+
+        <div class="features">
+            <div class="feature">
+                <h2>Real-Time Stock Control</h2>
+                <p>Manage your inventory efficiently with live tracking and automated updates.</p>
+            </div>
+            <div class="feature">
+                <h2>Detailed Financial Reports</h2>
+                <p>Get in-depth insights into your business finances with our advanced analytics tools.</p>
+            </div>
+            <div class="feature">
+                <h2>Customizable Invoices</h2>
+                <p>Create and print invoices with your logo, tailored to your business needs.</p>
+            </div>
+            <div class="feature">
+                <h2>User-Friendly Design</h2>
+                <p>Our intuitive interface ensures a seamless experience for every user.</p>
+            </div>
+        </div>
+
+        <div class="cta">
+            <button onclick="window.location.href='https://app.manostock.com/login'">Login</button>
+            <button onclick="window.location.href='https://app.manostock.com/get-started'">Get Started</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for toggling light and dark mode
+        const modeToggle = document.getElementById('modeToggle');
+        modeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('light-mode', modeToggle.checked);
+        });
+    </script>
+</body>
+
+</html>
